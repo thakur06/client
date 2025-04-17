@@ -55,12 +55,13 @@ const Clock = () => {
 
   const { myUserData } = useAuth();
 
-  const { data, loading } = useQuery(GET_SHIFTS_BY_USER, {
+  const { data, loading,refetch } = useQuery(GET_SHIFTS_BY_USER, {
     variables: { userId: myUserData?.user_id },
     skip: !myUserData?.user_id, // Prevent query execution until user_id is available
   });
 
   useEffect(() => {
+    refetch();
     // Get geolocation
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -79,7 +80,7 @@ const Clock = () => {
       const latestShift = data.shiftsByUser[0];
       setClockedIn(latestShift && !latestShift.clockOutTime);
     }
-  }, [data]);
+  }, [data,refetch]);
 
   const [clockIn, { loading: clockInLoading }] = useMutation(CLOCK_IN);
   const [clockOut, { loading: clockOutLoading }] = useMutation(CLOCK_OUT);

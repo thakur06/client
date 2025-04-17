@@ -18,7 +18,7 @@ import Unauthorized from './components/Unauthorized';
 const auth0Domain = import.meta.env.VITE_AUTH_DOMAIN;
 const auth0ClientId = import.meta.env.VITE_AUTH_CLIENT;
 const auth0RedirectUri = window.location.origin;
-const graphqlEndpoint = import.meta.env.SERVER ;
+const graphqlEndpoint = import.meta.env.VITE_SERVER ;
 
 const httpLink = createHttpLink({ uri: graphqlEndpoint });
 const authLink = setContext((_, { headers }) => {
